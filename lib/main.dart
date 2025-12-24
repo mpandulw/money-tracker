@@ -22,6 +22,7 @@ void main() async {
         title: "Application",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
+        debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
         themeMode: themeController.isDarkMode.value
