@@ -14,23 +14,113 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       // backgroundColor: const Color.fromRGBO(39, 55, 77, 1),
       body: Obx(
-        () => IndexedStack(
-          index: controller.currentPageIndex.value,
-          children: [Home(), AkunView(), RiwayatView()],
+        () => SafeArea(
+          child: IndexedStack(
+            index: controller.currentPageIndex.value,
+            children: [Home(), AkunView(), RiwayatView()],
+          ),
         ),
       ),
 
-      floatingActionButton: IconButton(
-        onPressed: () => Get.toNamed('/tambah-transaksi'),
-        icon: const Icon(
-          Icons.add_rounded,
-          fontWeight: FontWeight.bold,
-          color: Color.fromRGBO(187, 225, 250, 1),
-        ),
-        style: ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(
-            Color.fromRGBO(50, 130, 184, 1),
-          ),
+      floatingActionButton: Obx(
+        () => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // scan
+            AnimatedOpacity(
+              opacity: controller.isOpen.value ? 1 : 0,
+              duration: Duration(milliseconds: 300),
+              child: IgnorePointer(
+                ignoring: !controller.isOpen.value,
+                child: IconButton(
+                  iconSize: 40,
+                  onPressed: () => Get.toNamed('/scan'),
+                  icon: const Icon(
+                    Icons.document_scanner_rounded,
+                    color: Color.fromRGBO(187, 225, 250, 1),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                      Color.fromRGBO(50, 130, 184, 1),
+                    ),
+                    shape: WidgetStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.all(
+                          Radius.circular(12.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            // tambah transaksi
+            AnimatedOpacity(
+              opacity: controller.isOpen.value ? 1 : 0,
+              duration: Duration(milliseconds: 300),
+              child: IgnorePointer(
+                ignoring: !controller.isOpen.value,
+                child: IconButton(
+                  iconSize: 40,
+                  onPressed: () => Get.toNamed('/tambah-transaksi'),
+                  icon: const Icon(
+                    Icons.note_add,
+                    color: Color.fromRGBO(187, 225, 250, 1),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                      Color.fromRGBO(50, 130, 184, 1),
+                    ),
+                    shape: WidgetStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.all(
+                          Radius.circular(12.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            // Main button / close button
+            IconButton(
+              iconSize: 40,
+              onPressed: () => controller.floatingIconButtonToggle(),
+              icon: AnimatedRotation(
+                turns: controller.isOpen.value ? 0.125 : 0,
+                duration: Duration(milliseconds: 100),
+                // transform: Matrix4.rotationZ(12),
+                curve: Curves.easeInOut,
+                child: Icon(
+                  Icons.add_rounded,
+                  // fontWeight: FontWeight.bold,
+                  color: controller.isOpen.value
+                      ? Color.fromRGBO(255, 0, 0, 1)
+                      : Color.fromRGBO(187, 225, 250, 1),
+                ),
+              ),
+              style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  controller.isOpen.value
+                      ? Color.fromRGBO(153, 0, 0, 1)
+                      : Color.fromRGBO(50, 130, 184, 1),
+                ),
+                shape: WidgetStatePropertyAll(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.all(
+                      Radius.circular(12.5),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
 
@@ -44,6 +134,14 @@ class HomeView extends GetView<HomeController> {
             topStart: Radius.circular(20),
             topEnd: Radius.circular(20),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.5),
+              blurRadius: 10,
+              offset: Offset(0, -1),
+              // spreadRadius: 10,
+            ),
+          ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -66,7 +164,7 @@ class HomeView extends GetView<HomeController> {
                         : Icons.home_outlined,
                     color: controller.currentPageIndex.value == 0
                         ? Color.fromRGBO(187, 225, 250, 1)
-                        : Color.fromRGBO(15, 76, 117, 1),
+                        : Color.fromRGBO(27, 38, 44, 1),
                   ),
                 ),
               ),
@@ -90,7 +188,7 @@ class HomeView extends GetView<HomeController> {
                         : Icons.account_balance_wallet_outlined,
                     color: controller.currentPageIndex.value == 1
                         ? Color.fromRGBO(187, 225, 250, 1)
-                        : Color.fromRGBO(15, 76, 117, 1),
+                        : Color.fromRGBO(27, 38, 44, 1),
                   ),
                 ),
               ),
@@ -114,7 +212,7 @@ class HomeView extends GetView<HomeController> {
                         : Icons.history_outlined,
                     color: controller.currentPageIndex.value == 2
                         ? Color.fromRGBO(187, 225, 250, 1)
-                        : Color.fromRGBO(15, 76, 117, 1),
+                        : Color.fromRGBO(27, 38, 44, 1),
                   ),
                 ),
               ),

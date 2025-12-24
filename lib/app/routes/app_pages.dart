@@ -8,6 +8,10 @@ import '../modules/pengaturan/bindings/pengaturan_binding.dart';
 import '../modules/pengaturan/views/pengaturan_view.dart';
 import '../modules/riwayat/bindings/riwayat_binding.dart';
 import '../modules/riwayat/views/riwayat_view.dart';
+import '../modules/scan/bindings/scan_binding.dart';
+import '../modules/scan/views/scan_view.dart';
+import '../modules/tambah-transaksi/bindings/tambah_transaksi_binding.dart';
+import '../modules/tambah-transaksi/views/tambah_transaksi_view.dart';
 
 part 'app_routes.dart';
 
@@ -36,6 +40,16 @@ class AppPages {
       name: _Paths.AKUN,
       page: () => const AkunView(),
       binding: AkunBinding(),
+    ),
+    GetPage(
+      name: _Paths.TAMBAH_TRANSAKSI,
+      page: () => const TambahTransaksiView(),
+      binding: TambahTransaksiBinding(),
+    ),
+    GetPage(
+      name: _Paths.SCAN,
+      page: () => const ScanView(),
+      binding: ScanBinding(),
     ),
   ];
 }

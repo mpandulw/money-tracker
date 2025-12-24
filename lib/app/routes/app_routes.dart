@@ -7,6 +7,8 @@ abstract class Routes {
   static const PENGATURAN = _Paths.PENGATURAN;
   static const RIWAYAT = _Paths.RIWAYAT;
   static const AKUN = _Paths.AKUN;
+  static const TAMBAH_TRANSAKSI = _Paths.TAMBAH_TRANSAKSI;
+  static const SCAN = _Paths.SCAN;
 }
 
 abstract class _Paths {
@@ -15,4 +17,6 @@ abstract class _Paths {
   static const PENGATURAN = '/pengaturan';
   static const RIWAYAT = '/riwayat';
   static const AKUN = '/akun';
+  static const TAMBAH_TRANSAKSI = '/tambah-transaksi';
+  static const SCAN = '/scan';
 }
