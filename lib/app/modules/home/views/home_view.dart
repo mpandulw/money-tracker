@@ -101,15 +101,16 @@ class HomeView extends GetView<HomeController> {
                   Icons.add_rounded,
                   // fontWeight: FontWeight.bold,
                   color: controller.isOpen.value
-                      ? Color.fromRGBO(255, 0, 0, 1)
+                      ? Color.fromRGBO(225, 0, 0, 1)
                       : Color.fromRGBO(187, 225, 250, 1),
                 ),
               ),
               style: ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(
-                  controller.isOpen.value
-                      ? Color.fromRGBO(153, 0, 0, 1)
-                      : Color.fromRGBO(50, 130, 184, 1),
+                  // controller.isOpen.value
+                  //     ? Color.fromRGBO(153, 0, 0, 1)
+                  // :
+                  Color.fromRGBO(50, 130, 184, 1),
                 ),
                 shape: WidgetStatePropertyAll(
                   RoundedRectangleBorder(

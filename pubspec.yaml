@@ -38,6 +38,7 @@ dependencies:
   shared_preferences: ^2.5.4
   hive: ^2.2.3
   path_provider: ^2.1.5
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -139,3 +140,6 @@ flutter:
         - asset: assets/fonts/montserrat/Montserrat-BlackItalic.ttf
           weight: 900
           style: italic
+
+  assets:
+    - assets/images/
