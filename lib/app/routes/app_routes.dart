@@ -9,6 +9,7 @@ abstract class Routes {
   static const AKUN = _Paths.AKUN;
   static const TAMBAH_TRANSAKSI = _Paths.TAMBAH_TRANSAKSI;
   static const SCAN = _Paths.SCAN;
+  static const TAMBAH_AKUN = _Paths.TAMBAH_AKUN;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const AKUN = '/akun';
   static const TAMBAH_TRANSAKSI = '/tambah-transaksi';
   static const SCAN = '/scan';
+  static const TAMBAH_AKUN = '/tambah-akun';
 }

@@ -10,6 +10,8 @@ import '../modules/riwayat/bindings/riwayat_binding.dart';
 import '../modules/riwayat/views/riwayat_view.dart';
 import '../modules/scan/bindings/scan_binding.dart';
 import '../modules/scan/views/scan_view.dart';
+import '../modules/tambah-akun/bindings/tambah_akun_binding.dart';
+import '../modules/tambah-akun/views/tambah_akun_view.dart';
 import '../modules/tambah-transaksi/bindings/tambah_transaksi_binding.dart';
 import '../modules/tambah-transaksi/views/tambah_transaksi_view.dart';
 
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.SCAN,
       page: () => const ScanView(),
       binding: ScanBinding(),
+    ),
+    GetPage(
+      name: _Paths.TAMBAH_AKUN,
+      page: () => const TambahAkunView(),
+      binding: TambahAkunBinding(),
     ),
   ];
 }
