@@ -57,7 +57,7 @@ class AkunView extends GetView<AkunController> {
                     const SizedBox(height: 10),
 
                     const Text(
-                      'Akun masih kosong, silahkan buat akun finansial terlebih dahulu',
+                      'Anda belum memiliki akun saldo, silahkan buat terlebih dahulu',
                       textAlign: TextAlign.center,
                     ),
                   ],
