@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/akun/bindings/akun_binding.dart';
 import '../modules/akun/views/akun_view.dart';
+import '../modules/edit-akun/bindings/edit_akun_binding.dart';
+import '../modules/edit-akun/views/edit_akun_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/pengaturan/bindings/pengaturan_binding.dart';
@@ -14,6 +16,8 @@ import '../modules/tambah-akun/bindings/tambah_akun_binding.dart';
 import '../modules/tambah-akun/views/tambah_akun_view.dart';
 import '../modules/tambah-transaksi/bindings/tambah_transaksi_binding.dart';
 import '../modules/tambah-transaksi/views/tambah_transaksi_view.dart';
+
+// ignore_for_file: constant_identifier_names
 
 part 'app_routes.dart';
 
@@ -57,6 +61,11 @@ class AppPages {
       name: _Paths.TAMBAH_AKUN,
       page: () => const TambahAkunView(),
       binding: TambahAkunBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_AKUN,
+      page: () => const EditAkunView(),
+      binding: EditAkunBinding(),
     ),
   ];
 }

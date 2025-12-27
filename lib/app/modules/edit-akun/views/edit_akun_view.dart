@@ -3,15 +3,13 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/tambah_akun_controller.dart';
+import '../controllers/edit_akun_controller.dart';
 
-class TambahAkunView extends GetView<TambahAkunController> {
-  const TambahAkunView({super.key});
+class EditAkunView extends GetView<EditAkunController> {
+  const EditAkunView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-
       appBar: AppBar(
         title: const Text('', style: TextStyle(color: Color(0xFF000000))),
         backgroundColor: Color(0x00000000),
@@ -32,7 +30,7 @@ class TambahAkunView extends GetView<TambahAkunController> {
               children: [
                 // const SizedBox(height: 16),
                 const Text(
-                  'Tambah Akun',
+                  'Edit Akun',
                   style: TextStyle(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
@@ -174,7 +172,7 @@ class TambahAkunView extends GetView<TambahAkunController> {
                         ),
                       ),
                     ),
-                    onPressed: () => controller.tambahAkun(),
+                    onPressed: () => controller.editAkun(),
                     child: const Text('Tambah Akun'),
                   ),
                 ),

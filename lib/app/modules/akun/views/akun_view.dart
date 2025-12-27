@@ -1,88 +1,194 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:intl/intl.dart';
+import 'package:money_management_flutter_app/app/models/akun_model.dart';
 
 import '../controllers/akun_controller.dart';
 
 class AkunView extends GetView<AkunController> {
   const AkunView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: const Text('Akun'),
-        // centerTitle: true,
         backgroundColor: const Color(0x00000000),
         actions: [
-          TextButton.icon(
-            onPressed: () => Get.toNamed('/tambah-akun'),
-            label: const Text(
-              'Tambah Akun',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Color.fromRGBO(50, 130, 184, 1),
-              ),
-            ),
-            style: ButtonStyle(
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(8),
+          Obx(
+            () => TextButton.icon(
+              style: ButtonStyle(
+                fixedSize: WidgetStatePropertyAll(
+                  Size(135, double.minPositive),
+                ),
+                side: WidgetStatePropertyAll(
+                  BorderSide(color: Color.fromRGBO(50, 130, 184, 1)),
                 ),
               ),
-              side: WidgetStatePropertyAll(
-                BorderSide(color: Color.fromRGBO(50, 130, 184, 1), width: 2),
+              onPressed: () => controller.toggleEdit(),
+              icon: Icon(
+                controller.isEdit.value
+                    ? Icons.edit_off_rounded
+                    : Icons.edit_rounded,
+                color: controller.isEdit.value
+                    ? const Color(0xFFFF0000)
+                    : Color.fromRGBO(50, 130, 184, 1),
+              ),
+              label: Text(
+                controller.isEdit.value ? 'Tutup' : 'Mode Edit',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: controller.isEdit.value
+                      ? const Color(0xFFFF0000)
+                      : Color.fromRGBO(50, 130, 184, 1),
+                ),
               ),
             ),
-            icon: Icon(Icons.add, color: Color.fromRGBO(50, 130, 184, 1)),
           ),
         ],
         actionsPadding: EdgeInsets.only(right: 8),
       ),
 
-      body: controller.akun.isEmpty
-          ? Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/empty.png',
-                      height: 100,
-                      width: 100,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: SizedBox(
+                width: double.infinity,
+                height: 70,
+                child: FilledButton(
+                  style: ButtonStyle(
+                    shape: WidgetStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(16),
+                      ),
                     ),
-
-                    const SizedBox(height: 10),
-
-                    const Text(
-                      'Anda belum memiliki akun saldo, silahkan buat terlebih dahulu',
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                  ),
+                  onPressed: () => Get.toNamed('/tambah-akun'),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.add),
+                      const Text('Tambah Akun'),
+                    ],
+                  ),
                 ),
               ),
-            )
-          : ListView.separated(
-              itemCount: controller.akun.length,
-              separatorBuilder: (BuildContext context, int index) {
-                return Divider(endIndent: 15, indent: 15);
-              },
-              itemBuilder: (context, index) {
-                final item = controller.akun[index];
+            ),
 
-                return ListTile(
-                  title: Text(item['nama']),
-                  trailing: Text(
-                    NumberFormat.currency(
-                      symbol: 'Rp. ',
-                      locale: 'ID',
-                    ).format(item['saldo']).toString(),
-                  ),
+            ValueListenableBuilder(
+              valueListenable: controller.akun.listenable(),
+              builder: (context, Box<AkunModel> box, _) {
+                // jika isi dari objek box akun kosong
+                if (box.isEmpty) {
+                  return SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/empty.png',
+                            height: 100,
+                            width: 100,
+                          ),
+                          const SizedBox(height: 10),
+                          const Text(
+                            'Anda belum memiliki akun saldo, silahkan buat terlebih dahulu',
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+                return SliverList.separated(
+                  itemCount: box.length,
+                  separatorBuilder: (_, _) =>
+                      const Divider(endIndent: 15, indent: 15),
+                  itemBuilder: (context, index) {
+                    final item = box.getAt(index)!;
+
+                    return ListTile(
+                      title: Row(children: [Text(item.nama)]),
+                      subtitle: Text(item.digital ? 'Digital' : 'Tunai'),
+                      trailing: Obx(
+                        () =>
+                            // edit mode
+                            controller.isEdit.value
+                            ? Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    onPressed: () => Get.toNamed(
+                                      '/edit-akun',
+                                      arguments: {
+                                        'id': item.id,
+                                        'nama': item.nama,
+                                        'digital': item.digital,
+                                        'saldo': item.saldo,
+                                      },
+                                    ),
+                                    icon: const Icon(Icons.edit_document),
+                                  ),
+
+                                  const SizedBox(width: 10),
+
+                                  IconButton(
+                                    onPressed: () {
+                                      showCupertinoDialog(
+                                        context: context,
+                                        builder: (_) {
+                                          return AlertDialog(
+                                            title: const Text('Konfirmasi'),
+
+                                            content: const Text(
+                                              'Apakah kamu yakin untuk menghapus akun ini?',
+                                            ),
+
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Get.back(),
+                                                child: const Text('Tidak'),
+                                              ),
+
+                                              FilledButton(
+                                                onPressed: () => controller
+                                                    .hapusAkun(item.id),
+                                                child: const Text('Ya'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete_rounded,
+                                      color: Color(0xFFFF0000),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Text(
+                                NumberFormat.currency(
+                                  symbol: 'Rp. ',
+                                  locale: 'id_ID',
+                                  decimalDigits: 0,
+                                ).format(item.saldo),
+                              ),
+                      ),
+                    );
+                  },
                 );
               },
             ),
+          ],
+        ),
+      ),
     );
   }
 }
