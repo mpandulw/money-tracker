@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money_management_flutter_app/app/modules/akun/views/akun_view.dart';
 import 'package:money_management_flutter_app/app/modules/home/views/home.dart';
+import 'package:money_management_flutter_app/app/modules/kategori/views/kategori_view.dart';
 import 'package:money_management_flutter_app/app/modules/riwayat/views/riwayat_view.dart';
 
 import '../controllers/home_controller.dart';
@@ -13,11 +14,30 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: const Color.fromRGBO(39, 55, 77, 1),
+      appBar: AppBar(),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.category_rounded),
+              title: const Text('Kategori'),
+              onTap: () => Get.toNamed('/kategori'),
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.settings_rounded),
+              title: const Text('Pengaturan'),
+              onTap: () => Get.toNamed('/pengaturan'),
+            ),
+          ],
+        ),
+      ),
+
       body: Obx(
         () => SafeArea(
           child: IndexedStack(
             index: controller.currentPageIndex.value,
-            children: [Home(), AkunView(), RiwayatView()],
+            children: [Home(), AkunView(), KategoriView(), RiwayatView()],
           ),
         ),
       ),
@@ -195,7 +215,7 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
 
-            // Riwayat
+            // Kategori
             Obx(
               () => AnimatedContainer(
                 duration: Duration(milliseconds: 500),
@@ -209,9 +229,33 @@ class HomeView extends GetView<HomeController> {
                   onPressed: () => controller.changePageIndex(2),
                   icon: Icon(
                     controller.currentPageIndex.value == 2
+                        ? Icons.category_rounded
+                        : Icons.category_outlined,
+                    color: controller.currentPageIndex.value == 2
+                        ? Color.fromRGBO(187, 225, 250, 1)
+                        : Color.fromRGBO(27, 38, 44, 1),
+                  ),
+                ),
+              ),
+            ),
+
+            // Riwayat
+            Obx(
+              () => AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+                transform: Matrix4.translationValues(
+                  0,
+                  controller.currentPageIndex.value == 3 ? -5 : 0,
+                  0,
+                ),
+                child: IconButton(
+                  onPressed: () => controller.changePageIndex(3),
+                  icon: Icon(
+                    controller.currentPageIndex.value == 3
                         ? Icons.history_rounded
                         : Icons.history_outlined,
-                    color: controller.currentPageIndex.value == 2
+                    color: controller.currentPageIndex.value == 3
                         ? Color.fromRGBO(187, 225, 250, 1)
                         : Color.fromRGBO(27, 38, 44, 1),
                   ),

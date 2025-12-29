@@ -5,8 +5,8 @@ class AppTheme {
     brightness: Brightness.light,
     scaffoldBackgroundColor: Color.fromRGBO(255, 255, 255, 1),
     appBarTheme: AppBarTheme(
-      backgroundColor: Color.fromRGBO(50, 130, 184, 1),
-      foregroundColor: Color.fromRGBO(187, 225, 250, 1),
+      backgroundColor: Color.fromRGBO(50, 130, 184, 0),
+      foregroundColor: const Color.fromARGB(255, 51, 51, 255),
     ),
     fontFamily: 'Montserrat',
   );

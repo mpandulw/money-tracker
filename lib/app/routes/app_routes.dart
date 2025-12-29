@@ -13,6 +13,9 @@ abstract class Routes {
   static const SCAN = _Paths.SCAN;
   static const TAMBAH_AKUN = _Paths.TAMBAH_AKUN;
   static const EDIT_AKUN = _Paths.EDIT_AKUN;
+  static const KATEGORI = _Paths.KATEGORI;
+  static const TAMBAH_KATEGORI = _Paths.TAMBAH_KATEGORI;
+  static const EDIT_KATEGORI = _Paths.EDIT_KATEGORI;
 }
 
 abstract class _Paths {
@@ -25,4 +28,7 @@ abstract class _Paths {
   static const SCAN = '/scan';
   static const TAMBAH_AKUN = '/tambah-akun';
   static const EDIT_AKUN = '/edit-akun';
+  static const KATEGORI = '/kategori';
+  static const TAMBAH_KATEGORI = '/tambah-kategori';
+  static const EDIT_KATEGORI = '/edit-kategori';
 }

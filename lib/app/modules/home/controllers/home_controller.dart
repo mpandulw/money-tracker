@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:money_management_flutter_app/app/modules/akun/controllers/akun_controller.dart';
+import 'package:money_management_flutter_app/app/modules/kategori/controllers/kategori_controller.dart';
 import 'package:money_management_flutter_app/app/modules/riwayat/controllers/riwayat_controller.dart';
 
 class HomeController extends GetxController {
@@ -11,6 +12,7 @@ class HomeController extends GetxController {
     super.onInit();
     Get.lazyPut(() => AkunController());
     Get.lazyPut(() => RiwayatController());
+    Get.lazyPut(() => KategoriController());
   }
 
   void changePageIndex(int i) {

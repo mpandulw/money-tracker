@@ -7,19 +7,18 @@ class Home extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        actions: [
-          IconButton(
-            onPressed: () => Get.toNamed('/pengaturan'),
-            icon: const Icon(
-              Icons.settings_rounded,
-              color: Color.fromRGBO(15, 76, 117, 1),
-            ),
-          ),
-        ],
-      ),
-
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   actions: [
+      //     IconButton(
+      //       onPressed: () => Get.toNamed('/pengaturan'),
+      //       icon: const Icon(
+      //         Icons.settings_rounded,
+      //         color: Color.fromRGBO(15, 76, 117, 1),
+      //       ),
+      //     ),
+      //   ],
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsetsGeometry.all(8),
