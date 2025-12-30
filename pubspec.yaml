@@ -96,6 +96,13 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
   fonts:
+    - family: asciid
+      fonts:
+        - asset: assets/fonts/asciid/asciid.ttf
+    - family: monospace
+      fonts:
+        - asset: assets/fonts/monospace/SpaceMono-Regular.ttf
+          weight: 400
     - family: Montserrat
       fonts:
         - asset: assets/fonts/montserrat/Montserrat-Thin.ttf

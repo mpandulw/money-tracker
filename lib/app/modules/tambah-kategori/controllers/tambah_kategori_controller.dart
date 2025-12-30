@@ -20,17 +20,33 @@ class TambahKategoriController extends GetxController {
 
   void tambahKategori() async {
     if (formKey.currentState!.validate()) {
-      final id = Uuid().v4();
-      final box = Hive.box<KategoriModel>('kategori');
-      box.put(
-        id,
-        KategoriModel(
-          id: id,
-          nama: namaCtl.text,
-          pemasukan: isPemasukan.value,
-          tanggal: DateTime.now(),
-        ),
-      );
+      try {
+        final id = Uuid().v4();
+        final box = Hive.box<KategoriModel>('kategori');
+        box.put(
+          id,
+          KategoriModel(
+            id: id,
+            nama: namaCtl.text,
+            pemasukan: isPemasukan.value,
+            tanggal: DateTime.now(),
+          ),
+        );
+        Get.back();
+        Get.snackbar(
+          'Berhasil',
+          'Kategori berhasil ditambahkan',
+          backgroundColor: Colors.blue,
+          // colorText: Colors.white,
+        );
+      } catch (e) {
+        Get.snackbar(
+          'Error',
+          'Terjadi kesalahan saat menambahkan kategori',
+          backgroundColor: Colors.red,
+          // colorText: Colors.white,
+        );
+      }
     }
   }
 }

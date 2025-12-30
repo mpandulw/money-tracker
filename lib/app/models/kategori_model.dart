@@ -14,12 +14,12 @@ class KategoriModel extends HiveObject {
   bool pemasukan;
 
   @HiveField(3)
-  DateTime tanggal;
+  DateTime? tanggal;
 
   KategoriModel({
     required this.id,
     required this.nama,
     required this.pemasukan,
-    required this.tanggal,
+    this.tanggal,
   });
 }

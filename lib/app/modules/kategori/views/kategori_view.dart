@@ -94,7 +94,7 @@ class KategoriView extends GetView<KategoriController> {
                           ),
                           const SizedBox(height: 10),
                           const Text(
-                            'Anda belum memiliki akun saldo, silahkan buat terlebih dahulu',
+                            'Anda belum memiliki kategori, silahkan buat terlebih dahulu',
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -124,7 +124,7 @@ class KategoriView extends GetView<KategoriController> {
                                 children: [
                                   IconButton(
                                     onPressed: () => Get.toNamed(
-                                      '/edit-akun',
+                                      '/edit-kategori',
                                       arguments: {
                                         'id': item.id,
                                         'nama': item.nama,
