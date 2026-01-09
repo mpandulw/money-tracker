@@ -101,7 +101,7 @@ flutter:
         - asset: assets/fonts/asciid/asciid.ttf
     - family: monospace
       fonts:
-        - asset: assets/fonts/monospace/SpaceMono-Regular.ttf
+        - asset: assets/fonts/monospace/SpaceMono.ttf
           weight: 400
     - family: Montserrat
       fonts:

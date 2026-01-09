@@ -14,25 +14,6 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: const Color.fromRGBO(39, 55, 77, 1),
-      appBar: AppBar(),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              leading: const Icon(Icons.category_rounded),
-              title: const Text('Kategori'),
-              onTap: () => Get.toNamed('/kategori'),
-            ),
-
-            ListTile(
-              leading: const Icon(Icons.settings_rounded),
-              title: const Text('Pengaturan'),
-              onTap: () => Get.toNamed('/pengaturan'),
-            ),
-          ],
-        ),
-      ),
-
       body: Obx(
         () => SafeArea(
           child: IndexedStack(
@@ -181,8 +162,8 @@ class HomeView extends GetView<HomeController> {
                   onPressed: () => controller.changePageIndex(0),
                   icon: Icon(
                     controller.currentPageIndex.value == 0
-                        ? Icons.home_rounded
-                        : Icons.home_outlined,
+                        ? Icons.space_dashboard_rounded
+                        : Icons.space_dashboard_outlined,
                     color: controller.currentPageIndex.value == 0
                         ? Color.fromRGBO(187, 225, 250, 1)
                         : Color.fromRGBO(27, 38, 44, 1),

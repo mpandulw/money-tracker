@@ -34,5 +34,11 @@ class EditKategoriController extends GetxController {
       KategoriModel(id: id, nama: namaCtl.text, pemasukan: isPemasukan.value),
     );
     Get.back();
+    Get.snackbar(
+      'Sukses',
+      'Berhasil mengedit kategori',
+      backgroundColor: Colors.blue,
+      colorText: const Color(0xFFFFFFFF),
+    );
   }
 }

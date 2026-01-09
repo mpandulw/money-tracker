@@ -173,7 +173,7 @@ class EditAkunView extends GetView<EditAkunController> {
                       ),
                     ),
                     onPressed: () => controller.editAkun(),
-                    child: const Text('Tambah Akun'),
+                    child: const Text('Edit Akun'),
                   ),
                 ),
               ],

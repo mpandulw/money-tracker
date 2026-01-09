@@ -22,4 +22,9 @@ class AkunModel extends HiveObject {
     required this.digital,
     required this.saldo,
   });
+
+  @override
+  String toString() {
+    return 'id: $id, nama: $nama, digital: $digital, saldo: $saldo';
+  }
 }

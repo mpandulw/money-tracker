@@ -80,6 +80,7 @@ class KategoriView extends GetView<KategoriController> {
             ValueListenableBuilder(
               valueListenable: controller.kategori.listenable(),
               builder: (context, Box<KategoriModel> box, _) {
+                // jika box kategori kosong
                 if (box.isEmpty) {
                   return SliverFillRemaining(
                     hasScrollBody: false,
@@ -123,15 +124,18 @@ class KategoriView extends GetView<KategoriController> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   IconButton(
-                                    onPressed: () => Get.toNamed(
-                                      '/edit-kategori',
-                                      arguments: {
-                                        'id': item.id,
-                                        'nama': item.nama,
-                                        'pemasukan': item.pemasukan,
-                                        // 'saldo': item.saldo,
-                                      },
-                                    ),
+                                    onPressed: () async {
+                                      await Get.toNamed(
+                                        '/edit-kategori',
+                                        arguments: {
+                                          'id': item.id,
+                                          'nama': item.nama,
+                                          'pemasukan': item.pemasukan,
+                                          // 'saldo': item.saldo,
+                                        },
+                                      );
+                                      controller.isEdit.value = false;
+                                    },
                                     icon: const Icon(Icons.edit_document),
                                   ),
 

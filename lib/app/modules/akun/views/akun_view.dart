@@ -14,6 +14,7 @@ class AkunView extends GetView<AkunController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Top bar
       appBar: AppBar(
         backgroundColor: const Color(0x00000000),
         actions: [
@@ -124,15 +125,18 @@ class AkunView extends GetView<AkunController> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   IconButton(
-                                    onPressed: () => Get.toNamed(
-                                      '/edit-akun',
-                                      arguments: {
-                                        'id': item.id,
-                                        'nama': item.nama,
-                                        'digital': item.digital,
-                                        'saldo': item.saldo,
-                                      },
-                                    ),
+                                    onPressed: () async {
+                                      await Get.toNamed(
+                                        '/edit-akun',
+                                        arguments: {
+                                          'id': item.id,
+                                          'nama': item.nama,
+                                          'digital': item.digital,
+                                          'saldo': item.saldo,
+                                        },
+                                      );
+                                      controller.isEdit.value = false;
+                                    },
                                     icon: const Icon(Icons.edit_document),
                                   ),
 

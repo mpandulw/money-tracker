@@ -34,9 +34,10 @@ class TambahAkunController extends GetxController {
         Get.back();
 
         Get.snackbar(
-          'Berhasil Menambahkan Akun',
-          'Yatta',
+          'Sukses',
+          'Berhasil menambahkan akun',
           backgroundColor: Colors.blue,
+          colorText: const Color(0xFFFFFFFF),
         );
       } catch (e) {
         Get.snackbar(

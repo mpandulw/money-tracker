@@ -37,7 +37,7 @@ class TambahKategoriController extends GetxController {
           'Berhasil',
           'Kategori berhasil ditambahkan',
           backgroundColor: Colors.blue,
-          // colorText: Colors.white,
+          colorText: Colors.white,
         );
       } catch (e) {
         Get.snackbar(

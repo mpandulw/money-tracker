@@ -31,7 +31,7 @@ class EditKategoriView extends GetView<EditKategoriController> {
               children: [
                 // const SizedBox(height: 16),
                 const Text(
-                  'Tambah Kategori',
+                  'Edit Kategori',
                   style: TextStyle(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
@@ -71,7 +71,7 @@ class EditKategoriView extends GetView<EditKategoriController> {
 
                 const SizedBox(height: 15),
 
-                // tipe
+                // tipe kategori
                 Align(
                   alignment: AlignmentGeometry.centerLeft,
                   child: const Text('Tipe Kategori'),
@@ -132,7 +132,7 @@ class EditKategoriView extends GetView<EditKategoriController> {
                       ),
                     ),
                     onPressed: () => controller.updateKategori(),
-                    child: const Text('Tambah Kategori'),
+                    child: const Text('Edit Kategori'),
                   ),
                 ),
               ],

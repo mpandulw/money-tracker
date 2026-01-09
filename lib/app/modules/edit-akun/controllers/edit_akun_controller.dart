@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -34,15 +35,34 @@ class EditAkunController extends GetxController {
 
   // edit akun
   void editAkun() async {
-    final box = Hive.box<AkunModel>('akun');
-    box.put(
-      id,
-      AkunModel(
-        id: id,
-        nama: namaCtl.text,
-        digital: isDigital.value,
-        saldo: int.tryParse(saldoCtl.text)!,
-      ),
-    );
+    try {
+      final box = Hive.box<AkunModel>('akun');
+      box.put(
+        id,
+        AkunModel(
+          id: id,
+          nama: namaCtl.text,
+          digital: isDigital.value,
+          saldo: int.tryParse(saldoCtl.text)!,
+        ),
+      );
+      Get.back();
+      Get.snackbar(
+        'Sukses',
+        'Sukses mengubah data akun',
+        backgroundColor: Colors.blue,
+        colorText: const Color(0xFFFFFFFF),
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Gagal',
+        'Gagal mengubah data akun',
+        backgroundColor: Colors.red,
+        colorText: const Color(0xFFFFFFFF),
+      );
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 }

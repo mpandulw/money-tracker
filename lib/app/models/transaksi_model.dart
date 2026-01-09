@@ -18,7 +18,10 @@ class TransaksiModel extends HiveObject {
   Map<String, dynamic> item;
 
   @HiveField(5)
-  DateTime tanggal;
+  DateTime? tanggal;
+
+  @HiveField(6)
+  String akunId;
 
   TransaksiModel({
     required this.id,
@@ -26,6 +29,7 @@ class TransaksiModel extends HiveObject {
     required this.pemasukan,
     required this.kategori,
     required this.item,
-    required this.tanggal,
+    this.tanggal,
+    required this.akunId,
   });
 }
