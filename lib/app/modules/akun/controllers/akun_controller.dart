@@ -4,13 +4,13 @@ import 'package:money_management_flutter_app/app/models/akun_model.dart';
 import 'package:flutter/material.dart';
 
 class AkunController extends GetxController {
-  late Box<AkunModel> akun; // box akun
+  late Box<AkunModel> akunBox; // box akun
   final isEdit = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    akun = Hive.box<AkunModel>('akun');
+    akunBox = Hive.box<AkunModel>('akun');
     // akun.deleteAll(HiveList(akun));
   }
 
@@ -18,14 +18,23 @@ class AkunController extends GetxController {
     isEdit.value = !isEdit.value;
   }
 
-  void hapusAkun(String id) {
-    akun.delete(id);
+  void disableAkun(String id) {
+    final akun = akunBox.get(id)!;
+    akun.isActive = false;
+    akun.save();
+
     Get.back();
+
     Get.snackbar(
       'Sukses',
       'Berhasil menghapus akun',
+
       backgroundColor: Colors.blue,
       colorText: const Color(0xFFFFFFFF),
     );
+  }
+
+  List<AkunModel> get akunAktif {
+    return akunBox.values.where((akun) => akun.isActive).toList();
   }
 }

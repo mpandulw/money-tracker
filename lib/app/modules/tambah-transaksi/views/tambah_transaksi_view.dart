@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -138,8 +139,10 @@ class TambahTransaksiView extends GetView<TambahTransaksiController> {
                     fillColor: Color.fromRGBO(233, 233, 233, 1),
                     filled: true,
                   ),
-                  items: List.generate(controller.akunBox.length, (index) {
-                    final akun = controller.akunBox.getAt(index)!;
+                  items: List.generate(controller.getListAktifAkun.length, (
+                    index,
+                  ) {
+                    final akun = controller.getListAktifAkun[index];
 
                     return DropdownMenuItem(
                       value: akun,
@@ -148,7 +151,9 @@ class TambahTransaksiView extends GetView<TambahTransaksiController> {
                   }),
                   onChanged: (value) {
                     controller.akunSlct.value = value;
-                    print(controller.akunSlct.toString());
+                    if (kDebugMode) {
+                      print(controller.akunSlct.toString());
+                    }
                   },
                   validator: (value) {
                     if (value == null) {
@@ -177,17 +182,21 @@ class TambahTransaksiView extends GetView<TambahTransaksiController> {
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text('Kategori'),
+                      child: const Text('Kategori(opsional)'),
                     ),
                     fillColor: Color.fromRGBO(233, 233, 233, 1),
                     filled: true,
                   ),
-                  items: controller.getKategoriList().map((kategori) {
-                    return DropdownMenuItem(
-                      value: kategori,
-                      child: Text(kategori.nama),
-                    );
-                  }).toList(),
+                  items: [
+                    DropdownMenuItem(value: null, child: const Text('-')),
+
+                    ...controller.getKategoriList().map((kategori) {
+                      return DropdownMenuItem(
+                        value: kategori,
+                        child: Text(kategori.nama),
+                      );
+                    }),
+                  ],
                   onChanged: (value) {
                     controller.kategoriSlct.value = value;
                   },
@@ -201,95 +210,138 @@ class TambahTransaksiView extends GetView<TambahTransaksiController> {
                   child: const Text('Item Transaksi'),
                 ),
                 const SizedBox(height: 5),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding: EdgeInsets.all(8),
-                  child: Column(
-                    spacing: 16,
-                    children: [
-                      Table(
-                        columnWidths: {},
-                        children: [
-                          TableRow(
-                            children: [const Text('Nama'), const Text('Harga')],
+                Column(
+                  spacing: 16,
+                  children: [
+                    Table(
+                      defaultVerticalAlignment:
+                          TableCellVerticalAlignment.middle,
+                      columnWidths: const {
+                        0: FlexColumnWidth(3),
+                        1: FlexColumnWidth(2),
+                        2: FixedColumnWidth(40),
+                      },
+                      children: [
+                        // HEADER
+                        TableRow(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                            ),
                           ),
-                        ],
-                      ),
-
-                      ...List.generate(controller.item.length, (index) {
-                        final item = controller.item[index];
-
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: item.namaCtl,
-                                decoration: InputDecoration(
-                                  hintText: 'Nama barang',
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Nama item tidak boleh kosong!';
-                                  }
-
-                                  return null;
-                                },
+                          children: const [
+                            Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text(
+                                'Nama',
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
-
-                            const SizedBox(width: 16),
-
-                            Expanded(
-                              child: TextFormField(
-                                controller: item.hargaCtl,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(hintText: 'Rp. '),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly,
-                                ],
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Harga barang tidak boleh kosong';
-                                  }
-
-                                  return null;
-                                },
+                            Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text(
+                                'Harga',
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
-
-                            const SizedBox(width: 8),
-
-                            InkWell(
-                              onTap: () => controller.hapusItem(index),
-                              child: Icon(
-                                Icons.delete,
-                                color: Color(0xFFDD0000),
-                              ),
-                            ),
+                            SizedBox(),
                           ],
-                        );
-                      }),
+                        ),
 
-                      SizedBox(
-                        width: double.infinity,
-                        child: FilledButton(
-                          style: ButtonStyle(
-                            shape: WidgetStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadiusGeometry.circular(8),
+                        // DATA ROWS
+                        ...List.generate(controller.formItem.length, (index) {
+                          final item = controller.formItem[index];
+
+                          return TableRow(
+                            decoration: BoxDecoration(
+                              color: index.isEven
+                                  ? Colors.grey.shade100
+                                  : const Color(0xFFFFFFFF),
+                              border: const Border(
+                                left: BorderSide(),
+                                right: BorderSide(),
+                                bottom: BorderSide(),
                               ),
+                              borderRadius:
+                                  controller.formItem.length - 1 == index
+                                  ? BorderRadius.only(
+                                      bottomLeft: Radius.circular(16),
+                                      bottomRight: Radius.circular(16),
+                                    )
+                                  : BorderRadius.all(Radius.circular(0)),
+                            ),
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                ),
+                                child: TextFormField(
+                                  controller: item.namaCtl,
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                    // isDense: true,
+                                  ),
+                                  validator: (value) =>
+                                      value == null || value.isEmpty
+                                      ? 'Nama item tidak boleh kosong!'
+                                      : null,
+                                ),
+                              ),
+
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                ),
+                                child: TextFormField(
+                                  controller: item.hargaCtl,
+                                  keyboardType: TextInputType.number,
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                    // isDense: true,
+                                  ),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
+                                  validator: (value) =>
+                                      value == null || value.isEmpty
+                                      ? 'Harga barang tidak boleh kosong'
+                                      : null,
+                                ),
+                              ),
+
+                              Center(
+                                child: InkWell(
+                                  onTap: () => controller.hapusItem(index),
+                                  child: const Icon(
+                                    Icons.delete,
+                                    color: Color(0xFFDD0000),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
+                      ],
+                    ),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        style: ButtonStyle(
+                          shape: WidgetStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadiusGeometry.circular(8),
                             ),
                           ),
-                          onPressed: () => controller.tambahItem(),
-                          child: const Icon(Icons.add),
                         ),
+                        onPressed: () => controller.tambahItem(),
+                        child: const Icon(Icons.add),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
 
                 // item transaksi (struk belanja model iseng)

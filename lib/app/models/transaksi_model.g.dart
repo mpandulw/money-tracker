@@ -1,34 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'kategori_model.dart';
+part of 'transaksi_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class KategoriModelAdapter extends TypeAdapter<KategoriModel> {
+class TransaksiModelAdapter extends TypeAdapter<TransaksiModel> {
   @override
-  final int typeId = 2;
+  final int typeId = 3;
 
   @override
-  KategoriModel read(BinaryReader reader) {
+  TransaksiModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return KategoriModel(
+    return TransaksiModel(
       id: fields[0] as String,
       nama: fields[1] as String,
       pemasukan: fields[2] as bool,
-      tanggal: fields[3] as DateTime?,
-      isActive: fields[4] as bool,
+      idKategori: fields[3] as String?,
+      kategoriNamaSnapshot: fields[4] as String?,
+      items: (fields[5] as List).cast<ItemTransaksiModel>(),
+      tanggal: fields[6] as DateTime?,
+      idAkun: fields[7] as String,
+      akunNamaSnapshot: fields[8] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, KategoriModel obj) {
+  void write(BinaryWriter writer, TransaksiModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -36,9 +40,17 @@ class KategoriModelAdapter extends TypeAdapter<KategoriModel> {
       ..writeByte(2)
       ..write(obj.pemasukan)
       ..writeByte(3)
-      ..write(obj.tanggal)
+      ..write(obj.idKategori)
       ..writeByte(4)
-      ..write(obj.isActive);
+      ..write(obj.kategoriNamaSnapshot)
+      ..writeByte(5)
+      ..write(obj.items)
+      ..writeByte(6)
+      ..write(obj.tanggal)
+      ..writeByte(7)
+      ..write(obj.idAkun)
+      ..writeByte(8)
+      ..write(obj.akunNamaSnapshot);
   }
 
   @override
@@ -47,7 +59,7 @@ class KategoriModelAdapter extends TypeAdapter<KategoriModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is KategoriModelAdapter &&
+      other is TransaksiModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

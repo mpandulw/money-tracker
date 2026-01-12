@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:money_management_flutter_app/app/models/akun_model.dart';
+import 'package:money_management_flutter_app/app/models/item_transaksi_model.dart';
 import 'package:money_management_flutter_app/app/models/kategori_model.dart';
+import 'package:money_management_flutter_app/app/models/transaksi_model.dart';
 import 'package:money_management_flutter_app/app/theme/app_theme.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -17,9 +19,12 @@ void main() async {
   Hive.init(dir.path);
   Hive.registerAdapter(AkunModelAdapter());
   Hive.registerAdapter(KategoriModelAdapter());
+  Hive.registerAdapter(TransaksiModelAdapter());
+  Hive.registerAdapter(ItemTransaksiModelAdapter());
 
   await Hive.openBox<AkunModel>('akun');
   await Hive.openBox<KategoriModel>('kategori');
+  await Hive.openBox<TransaksiModel>('transaksi');
   // Theme
   final ThemeController themeController = Get.put(ThemeController());
 

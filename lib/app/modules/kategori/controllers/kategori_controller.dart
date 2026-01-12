@@ -4,22 +4,25 @@ import 'package:hive/hive.dart';
 import 'package:money_management_flutter_app/app/models/kategori_model.dart';
 
 class KategoriController extends GetxController {
-  late Box<KategoriModel> kategori;
+  late Box<KategoriModel> kategoriBox;
 
   final isEdit = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    kategori = Hive.box<KategoriModel>('kategori');
+    kategoriBox = Hive.box<KategoriModel>('kategori');
   }
 
   void toggleEdit() {
     isEdit.value = !isEdit.value;
   }
 
-  void hapusKategori(String id) {
-    kategori.delete(id);
+  void disableKategori(String id) {
+    final kategori = kategoriBox.get(id)!;
+    kategori.isActive = false;
+    kategori.save();
+
     Get.back();
     Get.snackbar(
       'Sukses',
@@ -27,5 +30,9 @@ class KategoriController extends GetxController {
       backgroundColor: Colors.blue,
       colorText: const Color(0xFFFFFFFF),
     );
+  }
+
+  List<KategoriModel> get kategoriAktif {
+    return kategoriBox.values.where((kategori) => kategori.isActive).toList();
   }
 }

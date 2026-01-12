@@ -21,13 +21,14 @@ class AkunModelAdapter extends TypeAdapter<AkunModel> {
       nama: fields[1] as String,
       digital: fields[2] as bool,
       saldo: fields[3] as int,
+      isActive: fields[4] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, AkunModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class AkunModelAdapter extends TypeAdapter<AkunModel> {
       ..writeByte(2)
       ..write(obj.digital)
       ..writeByte(3)
-      ..write(obj.saldo);
+      ..write(obj.saldo)
+      ..writeByte(4)
+      ..write(obj.isActive);
   }
 
   @override

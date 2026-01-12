@@ -16,11 +16,15 @@ class AkunModel extends HiveObject {
   @HiveField(3)
   int saldo;
 
+  @HiveField(4)
+  bool isActive;
+
   AkunModel({
     required this.id,
     required this.nama,
     required this.digital,
     required this.saldo,
+    required this.isActive,
   });
 
   @override

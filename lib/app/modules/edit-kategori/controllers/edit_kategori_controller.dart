@@ -31,7 +31,12 @@ class EditKategoriController extends GetxController {
     final box = Hive.box<KategoriModel>('kategori');
     box.put(
       id,
-      KategoriModel(id: id, nama: namaCtl.text, pemasukan: isPemasukan.value),
+      KategoriModel(
+        id: id,
+        nama: namaCtl.text,
+        pemasukan: isPemasukan.value,
+        isActive: true,
+      ),
     );
     Get.back();
     Get.snackbar(

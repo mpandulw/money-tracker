@@ -95,7 +95,7 @@ class HomeView extends GetView<HomeController> {
               onPressed: () => controller.floatingIconButtonToggle(),
               icon: AnimatedRotation(
                 turns: controller.isOpen.value ? 0.125 : 0,
-                duration: Duration(milliseconds: 100),
+                duration: Duration(milliseconds: 300),
                 // transform: Matrix4.rotationZ(12),
                 curve: Curves.easeInOut,
                 child: Icon(

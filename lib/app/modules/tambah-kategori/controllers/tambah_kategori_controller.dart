@@ -30,6 +30,7 @@ class TambahKategoriController extends GetxController {
             nama: namaCtl.text,
             pemasukan: isPemasukan.value,
             tanggal: DateTime.now(),
+            isActive: true,
           ),
         );
         Get.back();

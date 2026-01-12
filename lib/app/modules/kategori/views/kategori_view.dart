@@ -78,10 +78,10 @@ class KategoriView extends GetView<KategoriController> {
             ),
 
             ValueListenableBuilder(
-              valueListenable: controller.kategori.listenable(),
+              valueListenable: controller.kategoriBox.listenable(),
               builder: (context, Box<KategoriModel> box, _) {
                 // jika box kategori kosong
-                if (box.isEmpty) {
+                if (box.isEmpty || controller.kategoriAktif.isEmpty) {
                   return SliverFillRemaining(
                     hasScrollBody: false,
                     child: Center(
@@ -104,12 +104,14 @@ class KategoriView extends GetView<KategoriController> {
                   );
                 }
 
+                final listKategori = controller.kategoriAktif;
+
                 return SliverList.separated(
-                  itemCount: box.length,
+                  itemCount: listKategori.length,
                   separatorBuilder: (_, _) =>
                       const Divider(endIndent: 15, indent: 15),
                   itemBuilder: (context, index) {
-                    final item = box.getAt(index)!;
+                    final item = listKategori[index];
 
                     return ListTile(
                       title: Row(children: [Text(item.nama)]),
@@ -161,7 +163,7 @@ class KategoriView extends GetView<KategoriController> {
 
                                               FilledButton(
                                                 onPressed: () => controller
-                                                    .hapusKategori(item.id),
+                                                    .disableKategori(item.id),
                                                 child: const Text('Ya'),
                                               ),
                                             ],

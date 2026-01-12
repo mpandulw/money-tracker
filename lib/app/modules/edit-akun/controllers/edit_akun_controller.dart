@@ -44,6 +44,7 @@ class EditAkunController extends GetxController {
           nama: namaCtl.text,
           digital: isDigital.value,
           saldo: int.tryParse(saldoCtl.text)!,
+          isActive: true,
         ),
       );
       Get.back();

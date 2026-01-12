@@ -16,10 +16,14 @@ class KategoriModel extends HiveObject {
   @HiveField(3)
   DateTime? tanggal;
 
+  @HiveField(4)
+  bool isActive;
+
   KategoriModel({
     required this.id,
     required this.nama,
     required this.pemasukan,
     this.tanggal,
+    required this.isActive,
   });
 }

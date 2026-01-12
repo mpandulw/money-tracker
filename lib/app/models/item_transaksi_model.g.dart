@@ -1,44 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'kategori_model.dart';
+part of 'item_transaksi_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class KategoriModelAdapter extends TypeAdapter<KategoriModel> {
+class ItemTransaksiModelAdapter extends TypeAdapter<ItemTransaksiModel> {
   @override
-  final int typeId = 2;
+  final int typeId = 4;
 
   @override
-  KategoriModel read(BinaryReader reader) {
+  ItemTransaksiModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return KategoriModel(
-      id: fields[0] as String,
-      nama: fields[1] as String,
-      pemasukan: fields[2] as bool,
-      tanggal: fields[3] as DateTime?,
-      isActive: fields[4] as bool,
+    return ItemTransaksiModel(
+      nama: fields[0] as String,
+      harga: fields[1] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, KategoriModel obj) {
+  void write(BinaryWriter writer, ItemTransaksiModel obj) {
     writer
-      ..writeByte(5)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.nama)
       ..writeByte(2)
-      ..write(obj.pemasukan)
-      ..writeByte(3)
-      ..write(obj.tanggal)
-      ..writeByte(4)
-      ..write(obj.isActive);
+      ..writeByte(0)
+      ..write(obj.nama)
+      ..writeByte(1)
+      ..write(obj.harga);
   }
 
   @override
@@ -47,7 +38,7 @@ class KategoriModelAdapter extends TypeAdapter<KategoriModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is KategoriModelAdapter &&
+      other is ItemTransaksiModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -81,10 +81,10 @@ class AkunView extends GetView<AkunController> {
             ),
 
             ValueListenableBuilder(
-              valueListenable: controller.akun.listenable(),
+              valueListenable: controller.akunBox.listenable(),
               builder: (context, Box<AkunModel> box, _) {
                 // jika isi dari objek box akun kosong
-                if (box.isEmpty) {
+                if (box.isEmpty || controller.akunAktif.isEmpty) {
                   return SliverFillRemaining(
                     hasScrollBody: false,
                     child: Center(
@@ -107,12 +107,14 @@ class AkunView extends GetView<AkunController> {
                   );
                 }
 
+                final listAkun = controller.akunAktif;
+
                 return SliverList.separated(
-                  itemCount: box.length,
+                  itemCount: listAkun.length,
                   separatorBuilder: (_, _) =>
                       const Divider(endIndent: 15, indent: 15),
                   itemBuilder: (context, index) {
-                    final item = box.getAt(index)!;
+                    final item = listAkun[index];
 
                     return ListTile(
                       title: Row(children: [Text(item.nama)]),
@@ -162,7 +164,7 @@ class AkunView extends GetView<AkunController> {
 
                                               FilledButton(
                                                 onPressed: () => controller
-                                                    .hapusAkun(item.id),
+                                                    .disableAkun(item.id),
                                                 child: const Text('Ya'),
                                               ),
                                             ],

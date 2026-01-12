@@ -28,6 +28,7 @@ class TambahAkunController extends GetxController {
             nama: namaCtl.text,
             digital: isDigital.value,
             saldo: saldoCnvrt!,
+            isActive: true,
           ),
         );
 

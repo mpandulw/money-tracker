@@ -1,4 +1,7 @@
 import 'package:hive/hive.dart';
+import 'package:money_management_flutter_app/app/models/item_transaksi_model.dart';
+
+part 'transaksi_model.g.dart';
 
 @HiveType(typeId: 3)
 class TransaksiModel extends HiveObject {
@@ -12,24 +15,37 @@ class TransaksiModel extends HiveObject {
   bool pemasukan;
 
   @HiveField(3)
-  String kategori;
+  String? idKategori;
 
   @HiveField(4)
-  Map<String, dynamic> item;
+  String? kategoriNamaSnapshot;
 
   @HiveField(5)
-  DateTime? tanggal;
+  List<ItemTransaksiModel> items;
 
   @HiveField(6)
-  String akunId;
+  DateTime? tanggal;
+
+  @HiveField(7)
+  String idAkun;
+
+  @HiveField(8)
+  String akunNamaSnapshot;
 
   TransaksiModel({
     required this.id,
     required this.nama,
     required this.pemasukan,
-    required this.kategori,
-    required this.item,
+    this.idKategori,
+    this.kategoriNamaSnapshot,
+    required this.items,
     this.tanggal,
-    required this.akunId,
+    required this.idAkun,
+    required this.akunNamaSnapshot,
   });
+
+  @override
+  String toString() {
+    return 'id: $id, nama: $nama, pemasukan: $pemasukan, id_kategori: $idKategori, nama_kategori_snapshot: $kategoriNamaSnapshot, items: ${List.from(items)}, tanggal: $tanggal, id_akun: $idAkun, nama_akun_snapshot: $akunNamaSnapshot';
+  }
 }
