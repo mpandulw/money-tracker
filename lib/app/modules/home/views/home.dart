@@ -145,10 +145,13 @@ class Home extends GetView<HomeController> {
                                 children: [
                                   controller.isEdit.value
                                       ? IconButton(
-                                          onPressed: () => Get.toNamed(
-                                            '/edit-transaksi',
-                                            arguments: transaksi,
-                                          ),
+                                          onPressed: () async {
+                                            await Get.toNamed(
+                                              '/edit-transaksi',
+                                              arguments: transaksi,
+                                            );
+                                            controller.isEdit.value = false;
+                                          },
                                           icon: const Icon(Icons.edit_document),
                                         )
                                       : Text(

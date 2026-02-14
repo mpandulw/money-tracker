@@ -26,4 +26,9 @@ class KategoriModel extends HiveObject {
     this.tanggal,
     required this.isActive,
   });
+
+  @override
+  String toString() {
+    return 'KategoriModel{id: $id, nama: $nama, pemasukan: $pemasukan, tanggal: $tanggal, isActive: $isActive}';
+  }
 }

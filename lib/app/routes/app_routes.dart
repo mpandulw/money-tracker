@@ -16,6 +16,7 @@ abstract class Routes {
   static const KATEGORI = _Paths.KATEGORI;
   static const TAMBAH_KATEGORI = _Paths.TAMBAH_KATEGORI;
   static const EDIT_KATEGORI = _Paths.EDIT_KATEGORI;
+  static const EDIT_TRANSAKSI = _Paths.EDIT_TRANSAKSI;
 }
 
 abstract class _Paths {
@@ -31,4 +32,5 @@ abstract class _Paths {
   static const KATEGORI = '/kategori';
   static const TAMBAH_KATEGORI = '/tambah-kategori';
   static const EDIT_KATEGORI = '/edit-kategori';
+  static const EDIT_TRANSAKSI = '/edit-transaksi';
 }

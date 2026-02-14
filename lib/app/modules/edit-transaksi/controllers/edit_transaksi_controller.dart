@@ -1,42 +1,51 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:money_management_flutter_app/app/models/akun_model.dart';
 import 'package:money_management_flutter_app/app/models/item_transaksi_form_model.dart';
 import 'package:money_management_flutter_app/app/models/item_transaksi_model.dart';
 import 'package:money_management_flutter_app/app/models/kategori_model.dart';
-import 'package:hive/hive.dart';
-import 'package:intl/intl.dart';
 import 'package:money_management_flutter_app/app/models/transaksi_model.dart';
-import 'package:uuid/uuid.dart';
 
-class TambahTransaksiController extends GetxController {
+class EditTransaksiController extends GetxController {
+  late TransaksiModel transaksi; // variabel objek transaksi
   late Box<KategoriModel> kategoriBox; // tabel kategori
   late Box<AkunModel> akunBox; // tabel akun
   late Box<TransaksiModel> transaksiBox; // tabel transaksi
 
   final formItem = <ItemTransaksiFormModel>[
-    ItemTransaksiFormModel(),
+    // ItemTransaksiFormModel(),
   ].obs; // item transaksi variable
 
   // From variable
   final formKey = GlobalKey<FormState>();
   final namaCtl = TextEditingController();
   final isPemasukan = true.obs;
-  final akunSlct = Rxn<AkunModel>();
-  final kategoriSlct = Rxn<KategoriModel>();
-
-  final tanggal = DateFormat(
-    'yyyy-MM-dd',
-  ).format(DateTime.now()); // date time buat tanggal transaksi
-
-  final isLoading = false.obs; // loading variable
+  late Rxn<AkunModel> akunSlct = Rxn<AkunModel>();
+  final Rxn<KategoriModel> kategoriSlct = Rxn<KategoriModel>();
 
   @override
   void onInit() {
     super.onInit();
+    transaksi = Get.arguments;
+
     kategoriBox = Hive.box<KategoriModel>('kategori');
     akunBox = Hive.box<AkunModel>('akun');
     transaksiBox = Hive.box<TransaksiModel>('transaksi');
+
+    // Initialize form data
+    namaCtl.text = transaksi.nama;
+    isPemasukan.value = transaksi.pemasukan;
+    akunSlct.value = akunBox.get(transaksi.idAkun);
+
+    if (transaksi.idKategori != null) {
+      kategoriSlct.value = kategoriBox.get(transaksi.idKategori);
+    }
+
+    for (var item in transaksi.items) {
+      formItem.add(ItemTransaksiFormModel(nama: item.nama, harga: item.harga));
+    }
   }
 
   void ubahTipeTransaksi(bool pemasukan) {
@@ -44,36 +53,6 @@ class TambahTransaksiController extends GetxController {
       isPemasukan.value = pemasukan;
 
       kategoriSlct.value = null;
-    }
-  }
-
-  void tambahTransaksi() {
-    if (formKey.currentState!.validate()) {
-      final id = Uuid().v4();
-      final tgl = DateTime.now();
-
-      transaksiBox.put(
-        id,
-        TransaksiModel(
-          id: id,
-          nama: namaCtl.text,
-          pemasukan: isPemasukan.value,
-          items: buildItem,
-          idAkun: akunSlct.value!.id,
-          akunNamaSnapshot: akunSlct.value!.nama,
-          tanggal: tgl,
-          idKategori: kategoriSlct.value?.id,
-          kategoriNamaSnapshot: kategoriSlct.value?.nama,
-        ),
-      );
-
-      Get.back();
-      Get.snackbar(
-        'Sukses',
-        'Berhasil menambahkan transaksi',
-        backgroundColor: Colors.blue,
-        colorText: const Color(0xFFFFFFFF),
-      );
     }
   }
 
@@ -107,5 +86,38 @@ class TambahTransaksiController extends GetxController {
         harga: int.tryParse(formItem.hargaCtl.text)!,
       );
     }).toList();
+  }
+
+  void editTransaksi() {
+    if (formKey.currentState!.validate()) {
+      try {
+        transaksiBox.put(
+          transaksi.id,
+          TransaksiModel(
+            id: transaksi.id,
+            nama: namaCtl.text,
+            pemasukan: isPemasukan.value,
+            items: buildItem,
+            idAkun: akunSlct.value!.id,
+            akunNamaSnapshot: akunSlct.value!.nama,
+            tanggal: transaksi.tanggal,
+            idKategori: kategoriSlct.value?.id,
+            kategoriNamaSnapshot: kategoriSlct.value?.nama,
+          ),
+        );
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+
+      Get.back();
+      Get.snackbar(
+        'Berhasil',
+        'Transaksi berhasil diubah',
+        backgroundColor: Colors.blue,
+        colorText: Colors.white,
+      );
+    }
   }
 }

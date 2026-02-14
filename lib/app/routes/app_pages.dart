@@ -6,6 +6,8 @@ import '../modules/edit-akun/bindings/edit_akun_binding.dart';
 import '../modules/edit-akun/views/edit_akun_view.dart';
 import '../modules/edit-kategori/bindings/edit_kategori_binding.dart';
 import '../modules/edit-kategori/views/edit_kategori_view.dart';
+import '../modules/edit-transaksi/bindings/edit_transaksi_binding.dart';
+import '../modules/edit-transaksi/views/edit_transaksi_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/kategori/bindings/kategori_binding.dart';
@@ -87,6 +89,11 @@ class AppPages {
       name: _Paths.EDIT_KATEGORI,
       page: () => const EditKategoriView(),
       binding: EditKategoriBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_TRANSAKSI,
+      page: () => const EditTransaksiView(),
+      binding: EditTransaksiBinding(),
     ),
   ];
 }
